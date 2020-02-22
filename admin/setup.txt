@@ -1,0 +1,6 @@
+Site Setup:
+1. Populate admin/config.php with proper information to establish connections to your mysql server
+2. Run admin/master_reset.php. This will create all the necessary tables and prepopulate them with the starting information.
+3. Setup a cron job to run the following every 15 minutes: 
+/opt/php53/bin/php -q /home/talijc5/public_html/gosv18_3/admin/timed_updates.php >/dev/null 2>&1
+4. admin/generate_connections.php needs ran one time to initialize map connections table used by Ways and Quests.
