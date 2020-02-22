@@ -5,6 +5,8 @@
  Built using this repository as a starting point:
 https://github.com/cragcraig/game-of-stones
 
+Server setup instructions included in admin/setup.txt
+
 Server resource statistics:
 - Total DB size per game instance: ~50MB
 - Average Bandwidth usage: < 2.5MB/min
