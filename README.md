@@ -6,6 +6,7 @@
 https://github.com/cragcraig/game-of-stones
 
 Server setup instructions included in admin/setup.txt
+Several directories uploaded zipped to simplify upload/download process. Extract all .zip files after pulling.
 
 Server resource statistics:
 - Total DB size per game instance: ~50MB
