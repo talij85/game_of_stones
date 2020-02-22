@@ -1,0 +1,405 @@
+<?php
+  include_once("admin/mapData.php");
+  if (!$skipVerify && (!($name && $lastname && $password) || $password!=$char['password'])) {header("Location: $server_name/verify.php?enabled=1"); exit;}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<META name="description" content="A Game of Stones is a free MMORPG based in the Wheel of Time universe. Includes: custom character development, unique weapons, clan warfare, and player versus player combat."/>
+<META name="keywords" content="wheel of time, wot, mmorpg, wotmud, wot mud, wheeloftime, randland, free, rpg, sword, battle, gos, game of stones, online game, browser based, browser-based"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<link rel="icon" href="images/icon.ico" type="image/icon" />
+  <?php 
+    if (!$skipVerify)
+    {
+      $myresult = mysql_query("SELECT * FROM Users LEFT JOIN Users_data ON Users.id=Users_data.id WHERE Users.id='$id'");
+      $char = mysql_fetch_array($myresult);
+      $percent_up = 100-intval(100*($char[exp_up]-$char[exp])/$char[exp_up_s]);
+      if ($percent_up > 99) $percent_up = 99;
+      $mylistsize = mysql_num_rows(mysql_query("SELECT * FROM Items WHERE owner='$id' AND type<15"));
+      $myclistsize = mysql_num_rows(mysql_query("SELECT * FROM Items WHERE owner='$id' AND type>=19 AND istatus=0"));
+
+      if ($char['travelmode']) {
+        if ($travel_mode[$char['travelmode']][1]<=$char['feedneed']) $feedneed = 0;
+        else $feedneed = ($travel_mode[$char['travelmode']][1]-$char['feedneed']);
+      }
+      else $feedneed = 0;
+    }
+    $n_title = $_COOKIE['name'];
+    $nl_title = $_COOKIE['lastname'];
+    if ($char[id]) $title = "$n_title $nl_title";
+    if (!$title) $title = "A Game of Stones"; 
+    else $title = "GoS: ".$title;
+    echo "<title>$title</title>";
+  ?>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<?php
+  if ($mode == 1)
+  {
+?>
+  <link rel="stylesheet" href="http://talij.com/gosBootstrap/css/goslitetheme.min.css">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link rel="stylesheet" href="gos_style.css">
+  <link rel="stylesheet" href="gos_lite.css">
+<?php 
+  } 
+  else 
+  {
+?>
+  <link rel="stylesheet" href="themes/gosdefault.min.css">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link rel="stylesheet" href="gos_style.css">
+  <link rel="stylesheet" href="gos_default.css">
+<?php 
+  }
+?>
+
+</head>
+
+<?php 
+  if (!$wikilink) $wikilink = "";
+  if (!$message && !$char[id]) $message = "Welcome to the GoS: v18!"; 
+?>
+
+<body>
+ <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.php"><img src='images/GoSlogo.gif' class='' height='25'/></a>
+    </div>
+<?php
+  if (!$char[id])
+  {
+?>     
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="create.php">Join</a></li>
+        <li><a href="<?php echo 'http://talij.com/goswiki/index.php?title='.$wikilink;?>" target="_blank">Wiki</a></li>
+        <li><a href="http://gosos.proboards.com/index.cgi" target="_blank">Forum</a></li>
+        <li><a onClick="donateForm.submit()">Donate</a></li>
+      <form name="donateForm" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <input type="hidden" name="cmd" value="_donations"/>
+        <input type="hidden" name="business" value="tim.a.jensen@gmail.com"/>
+        <input type="hidden" name="item_name" value="GoS:OS Fund"/>
+        <input type="hidden" name="item_number" value="101"/>
+        <input type="hidden" name="no_shipping" value="0"/>
+        <input type="hidden" name="no_note" value="1"/>
+        <input type="hidden" name="currency_code" value="USD"/>
+        <input type="hidden" name="tax" value="0"/>
+        <input type="hidden" name="lc" value="US"/>
+        <input type="hidden" name="bn" value="PP-DonationsBF"/>
+      </form>        
+      </ul>      
+<?php
+  }
+  else
+  {
+    $newskills = $char[newskills];
+    $newprof = $char[newprof];
+    $newpoints = $newskills + $newprof;
+  
+    $newmsg = $char[newmsg];
+    $newlog = $char[newlog];
+    $newachieve = $char[newachieve];
+    $newnotes = $newmsg + $newlog + $newachieve;
+?>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="dropdown hidden-sm">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo "$char[name] $char[lastname]"; ?>  <?php if ($newpoints > 0 ) echo "<span class='badge'>$newpoints</span>";?>
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bio.php">Profile</a></li>
+            <li><a href="items.php">Inventory</a></li>
+            <li><a href="stats.php">Skills <?php if ($newskills > 0 ) echo "<span class='badge'>$newskills</span>";?></a></li>
+            <li><a href="professions.php">Professions <?php if ($newprof > 0 ) echo "<span class='badge'>$newprof</span>";?></a></li>
+            <li><a href="myquests.php">Quests</a></li>
+            <li><a href="avatar.php">Settings</a></li>
+          </ul>
+        </li>
+        <li class="dropdown visible-sm">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Player <?php if ($newpoints > 0 ) echo "<span class='badge'>$newpoints</span>";?>
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bio.php">Profile</a></li>
+            <li><a href="items.php">Inventory</a></li>
+            <li><a href="stats.php">Skills <?php if ($newskills > 0 ) echo "<span class='badge'>$newskills</span>";?></a></li>
+            <li><a href="professions.php">Professions <?php if ($newprof > 0 ) echo "<span class='badge'>$newprof</span>";?></a></li>
+            <li><a href="myquests.php">Quests</a></li>
+          </ul>
+        </li>       
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">World
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="world.php"><?php echo $char[location];?></a></li>
+            <li><a href="look.php?first=1">Nearby Players</a></li>
+            <li><a href="look.php?&world=1&first=1">All Players</a></li>
+            <li><a href="viewtowns.php">All Cities</a></li>
+            <li><a href="horn.php">Heroes</a></li>
+            <li><a href="ways.php">The Ways</a></li>
+            <li><a href="http://gos.talij.com/images/map.swf" target="_blank">Map</a></li>                     
+          </ul>
+        </li> 
+        <?php
+
+          $hunt =0;
+          $eLinks = '';
+          $eLinkNum = 0;
+          $myquests= unserialize($char[quests]);
+          if ($myquests)
+          {
+            foreach ($myquests as $c_n => $c_s)
+            {
+              if ($c_s[0] == 1)
+              {
+                $hquest = mysql_fetch_array(mysql_query("SELECT * FROM Quests WHERE id='$c_n'"));
+                if ($hquest[expire] > (time()/3600) || $hquest[expire] == -1)
+                { 
+                  if ($hquest[type] == $quest_type_num["NPC"])
+                  {
+                    $hgoals = unserialize($hquest[goals]);
+                    if (strtolower($hgoals[2]) == strtolower($char[location]) && $myquests[$c_n][1]< $hgoals[0])
+                    {
+                      $hunt =1;
+                    }
+                  }
+                  else if ($hquest[type] == $quest_type_num["Horde"])
+                  {
+                    $hgoals = unserialize($hquest[goals]);
+                    if (strtolower($hgoals[2]) == strtolower($char[location]) && $myquests[$c_n][1] > 0)
+                    {
+                       $hunt = 1;
+                    }
+                  }
+                  else if ($hquest[type] == $quest_type_num["Escort"])
+                  {
+                    $hgoals = unserialize($hquest[goals]);
+                    $route = mysql_fetch_array(mysql_query("SELECT * FROM Routes WHERE id='".$hgoals[1]."'"));
+                    $rpath = unserialize($route[path]);
+
+                    if (strtolower($rpath[$myquests[$c_n][1]]) == strtolower($char[location]) && $myquests[$c_n][1]< $hgoals[0])
+                    {
+                      if (!in_array($char['location'], $townnames) && $myquests[$c_n][2] < 1)
+                      {
+                        $eLinks[$eLinkNum++] = "<li><a href='npc.php?escort=".$c_n."'>Defend ".$hquest[offerer]."</a></li>";
+                      }
+                      else 
+                      {
+                        $eLinks[$eLinkNum++] = "<li><a onClick='submitEscortTravelForm($hquest[id]);'>Escort ".$hquest[offerer]."</a></li>";
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          if (in_array($char['location'], $townnames))
+          {          
+            // CHECK FOR LOCAL BUSINESSES
+            $myLocBiz[999] = '';
+
+            $tempResult = mysql_query("SELECT id, type FROM Profs WHERE owner='".$char[id]."' AND location='".$char[location]."'");
+            while ($bq = mysql_fetch_array( $tempResult ) )
+            {
+              $myLocBiz[$bq[type]]=1;
+            }
+              
+            $locCheck = mysql_fetch_array(mysql_query("SELECT id, name FROM Locations WHERE name='".$char[location]."'"));
+            $clead = isClanLeader($char,$char[society],1, $locCheck[id]);
+        ?>  
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Local
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="shop.php">Shop</a></li>
+            <li><a href="blacksmith.php">Blacksmith</a></li>
+            <li><a href="market.php">Market</a></li>
+            <li><a href="business.php?shop=4">Outfitter</a></li>
+            <li><a href="business.php?shop=1">Inn</a></li>
+            <li><a href="business.php?shop=2">Wise Woman</a></li>
+            <li><a href="business.php?shop=3">Tavern</a></li>
+            <li><a href="quests.php">Quests</a></li>
+            <li><a href="rumors.php">Rumor</a></li>
+            <li><a href="townhall.php">City Hall</a></li>
+            <?php 
+              if (count($myLocBiz) >1)
+              {
+            ?>
+            <li><a href="mybusinesses.php">Businesses</a></li>
+            <?php 
+              }
+              if ($clead)
+              {
+            ?>
+            <li><a href="clanoffice.php">Clan Office</a></li>                       
+            <?php
+              }
+            ?>
+          </ul>
+        </li>
+        <?php
+          }
+          else
+          {
+            $isHorde=mysql_fetch_array( mysql_query("SELECT * FROM Hordes WHERE done='0' AND location='$char[location]'") );
+        ?>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Local
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="npc.php">Explore</a></li>
+            <?php
+              if ($hunt)
+              { 
+            ?>
+            <li><a href="npc.php?hunt=1">Hunt</a></li>
+            <?php
+              }  
+              if ($isHorde[id])
+              {
+            ?>
+            <li><a href="npc.php?horde=<?php echo $isHorde[id];?>">Horde</a></li>
+            <?php
+                if ($isHorde[army_done] == 0)
+                {
+            ?>
+            <li><a href="npc.php?horde=<?php echo $isHorde[id];?>&army=1'">Army</a></li>
+            <?php
+                }
+              }
+            ?>
+            <li><a href="estate.php">Estates</a></li>
+          </ul>
+        </li>        
+        <?php
+          } 
+        ?>             
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Messages <?php if ($newnotes > 0 ) echo "<span class='badge'>$newnotes</span>";?>
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="messages.php">Message Center <?php if ($newmsg > 0 ) echo "<span class='badge'>$newmsg</span>";?></a></li>
+            <li><a href="battlelogs.php">Battle Logs <?php if ($newlog > 0 ) echo "<span class='badge'>$newlog</span>";?></a></li>
+            <li><a href="achievements.php">Achievements <?php if ($newachieve > 0 ) echo "<span class='badge'>$newachieve</span>";?></a></li>
+            <li><a href="telaranrhiod.php" target="_blank">Tel'aran'rhiod</a></li>
+          </ul>
+        </li>      
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Clans
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          <?php
+            if ($char[society])
+            {
+          ?>
+            <li><a href="clan.php"><?php echo $char[society];?></a></li>
+            <li><a href="vault.php">Clan Vault</a></li>
+            <li><a href="look.php?first=1&clan=<?php echo $char[society];?>">Clan Members</a></li>
+          <?php
+            }
+          ?>    
+            <li><a href="viewclans.php">All Clans</a></li>                  
+          </ul>
+        </li>             
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Travel
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          <?php
+            include_once("admin/mapData.php");
+            $surrounding_area = $map_data[$char[location]];
+            
+            for ($l = 0; $l < 4; $l++)
+            {
+              echo "<li><a onClick='submitTravelForm($l);'>$surrounding_area[$l]</a></li>";
+            }
+            for ($e = 0; $e < $eLinkNum; $e++)
+            {
+              echo $eLinks[$e];
+            }
+            if ($char[route])
+            {
+              $route = mysql_fetch_array(mysql_query("SELECT * FROM Routes WHERE id='".$char[route]."'"));
+              $rpath = unserialize($route[path]);
+
+              if (strtolower($rpath[$char[routepoint]]) == strtolower($char[location]))
+              {
+                echo "<li><a onClick='submitWaysTravelForm(".$route[id].");'>Guiding to ".$route[end]."</a></li>";
+              }
+            }
+          ?>        
+          </ul>
+        </li>
+        <form name="travelForm" action="world.php" method="post">
+          <?php $clean_loc = str_replace("&#39;", "", $char[location]);?>
+          <input type="hidden" name="fromLoc" value="<?php echo $clean_loc;?>"/>
+          <input type="hidden" name="toLoc" value="-1"/>
+          <input type="hidden" name="escortId" value="-1"/>
+          <input type="hidden" name="waysId" value="-1"/>
+        </form>          
+      </ul>
+      <ul class="nav navbar-nav navbar-right">        
+        <li class='hidden-sm hidden-md'><a href="<?php echo 'http://talij.com/goswiki/index.php?title='.$wikilink;?>" target="_blank">Wiki</a></li>
+        <li class='hidden-sm hidden-md'><a href="http://gosos.proboards.com/index.cgi" target="_blank">Forum</a></li>
+        <li class="dropdown visible-sm visible-md">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Info
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="<?php echo 'http://talij.com/goswiki/index.php?title='.$wikilink;?>" target="_blank">Wiki</a></li>
+            <li><a href="http://gosos.proboards.com/index.cgi" target="_blank">Forum</a></li>                  
+          </ul>
+        </li>        
+        <li><a href="logout.php">Logout</a></li>
+      </ul>
+<?php
+  }
+?>
+    </div>
+  </div>
+</nav>
+<div class="container" align='center'>
+  <div class='row hidden-xs'>
+    <div class='col-xs-12'>
+      <img src="images/V14.jpg" class='img-rounded img-responsive img-optional-nodisplay'/>
+    </div>
+  </div>
+  <div class="row" align='left'>
+
+     <?php
+       if ($char[id])
+       {
+     ?>  
+     <div class="col-md-6 col-md-push-6">
+       <div class="">
+         <table class="table table-responsive table-condensed infobar" width="100%" cellpadding="0" cellspacing="0" border="0">
+           <tr>
+             <td><img src="images/health.gif" title='Stamina' style="vertical-align:middle"/><?php echo $char[stamina]."/".$char[stamaxa];?></td>
+             <td><img src="images/battle.gif" title='Turns' style="vertical-align:middle"/><?php echo ($battlelimit-$char['battlestoday']);?></td>
+             <td><img src='images/lvlup.gif' title='% Towards Level Up' style="vertical-align:middle"/><?php echo number_format($percent_up)."%";?></td>
+             <td><img src="images/armor.gif" title='Equipment Storage' style="vertical-align:middle"/><?php echo $mylistsize."/".$inv_max;?></td>
+             <td><img src="images/bag.gif" title='Consumables Storage' style="vertical-align:middle"/><?php echo $myclistsize."/".$pouch_max;?></td>
+             <td><img src='images/horse.gif' title='Horse Stamina' style="vertical-align:middle"/><?php echo $feedneed;?> </td>
+             <td><div id='pocket'><?php echo displayGold($char[gold]);?></div></td>
+           </tr>
+         </table>
+       </div>
+     </div>
+     <?php
+       }
+     ?>
+     <div class="col-md-6 col-md-pull-6">
+       <b><?php if ($message) echo $message; ?></b>
+     </div>
+  </div>
+  

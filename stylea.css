@@ -1,0 +1,365 @@
+.form { font-family: Verdana; font-size: 10px; color: #999999; background: #0F0F0F; border: #333333 solid 1px; }
+
+.form_sm { font-family: Verdana; font-size: 9px; color: #999999; background: #0F0F0F; border: #333333 solid 1px; }
+
+.popper { font-family: Verdana; font-size: 9px; color: #5A81BB; background: #0F0F0F; border: #333333 solid 1px; }
+
+.popper_text { font-family: Verdana; font-size: 10px; color: #DDDDDD; background: #111111; border: #333333 solid 1px; }
+
+.title { font-family: Verdana; font-size: 24px; color: #C6CCD8; background: #0F0F0F; border-color : #999999; border: #999999 solid 1px; padding: 10px; width: 90%;}
+
+.bigtext { font-family: Verdana; font-size: 18px;}
+
+.blank { border-width: 0px; border-spacing: 0px; padding: 0px; border-collapse: collapse;}
+
+.abox { border: 1px solid #333333; 	
+        background-image:url('images/GoSBackdrop.gif');
+        border-spacing: 0px; 
+        padding: 15px 3px 3px 3px;
+}
+
+table { empty-cells:show; border-collapse: collapse; padding: 0px;}
+
+td {
+  font-family: Verdana; font-size: 12px; color: #C6CCD8;
+}
+
+table.minimap { 
+  background-image: url('map/minimap.gif');
+  background-repeat: no-repeat;
+  border-width: 0px; padding: 0px; width:250px; height:175px;
+}
+
+.notable { color: #df1e22;}
+.doable { color: #efefef;}
+
+.headerCol { width:9px; height: 34px;}
+.headerLink { width:49px; height: 34px;}
+.headerLink:hover { width:73px; height: 34px;}
+
+table.fixed { table-layout:fixed; }
+table.fixed td { overflow: hidden; text-overflow: ellipsis;}
+table.fixed td:hover { text-overflow:inherit; overflow:visible; }
+
+tr.listtab { background: #000000;}
+tr.listtab:hover { background: #111111;}
+
+tr.listtab1 { background: #000000;}
+tr.listtab1:hover { background: #222222;}
+tr.listtab2 { background: #111111;}
+tr.listtab2:hover { background: #222222;}
+
+.battletext { font-family: Verdana; font-size: 12px; color: #C6CCD8; background-color: #000000;}
+.battledtext { font-family: Verdana; font-size: 12px; color: #000000; background-color: #F5F2EB;}
+
+.estate_t { font-family: Verdana; font-size: 9px; color: #EEEEEE; background-color: #111111; font-weight:bold;}
+.estate_r { font-family: Verdana; font-size: 9px; color: #E14545; background-color: #111111; font-weight:bold;}
+
+.headrow { border-width: 0px; border-bottom: 1px solid #333333;}
+
+.foottext { font-family: Verdana; font-size: 9px; color: #C6CCD8;}
+
+.foottext_r { font-family: Verdana; font-size: 9px; color: #E14545;}
+
+.littletext { font-family: Verdana; font-size: 12px; color: #C6CCD8;}
+
+.littletext_b { font-family: Verdana; font-size: 12px; color: #C6CCD8; font-weight: bold;}
+
+.littletext_r { font-family: Verdana; font-size: 12px; color: #E14545;}
+
+.littletext_p { font-family: Verdana; font-size: 12px; color: #9E1B90;}
+
+.foottext_f { font-family: Verdana; font-size: 9px; color: #999999;}
+
+.littletext_f { font-family: Verdana; font-size: 12px; color: #999999;}
+
+.medtext { font-family: Verdana; font-size: 14px; color: #C6CCD8;}
+
+.logintext { font-family: Verdana; font-size: 12px; color: #C6CCD8;}
+
+.txtbutton { font-family: Verdana; font-size: 12px; color: #5A81BB; background: #000000; border: #000000 solid 0px; }
+
+.tab_sel { border: 1px solid #333333; border-bottom-width: 0px; background-color: #000000; border-spacing: 0px; padding: 6px;}
+.tab_unsel { border: 1px solid #333333; background-color: #0F0F0F; border-spacing: 0px; padding: 6px;}
+
+p.statup {display: inline; color: #00FF00; }
+p.statdown {display: inline; color: #FF0000; }
+
+.fixgap {
+float: right;
+height: 0;
+}
+
+* html fieldset{
+    position: relative;
+    margin-top:1em;
+    padding-top:.75em;
+}
+* html legend{
+    position:absolute;
+    top: -.5em;
+    left: .5em;
+}
+
+
+div.townlink {cursor: pointer; font-family: Verdana; font-size: 12px; color: #999999; background: #0F0F0F; border: #333333 solid 1px; }
+div.townlink:hover{background: #2F2F2F;}
+
+A:link{color: #5A81BB; text-decoration:none}
+A:visited{color: #5A81BB; text-decoration:none}
+A:active{color: #5A81BB; text-decoration:none}
+A:hover{color: #C4E5FF; text-decoration:none}
+
+A.item:link{color: #5A81BB; text-decoration:none}
+A.item:visited{color: #5A81BB; text-decoration:none}
+A.item:active{color: #5A81BB; text-decoration:none}
+A.item:hover{color: #C4E5FF; text-decoration:none}
+
+A.infolink:link{color: #FFFF77; text-decoration:none}
+A.infolink:visited{color: #FFFF77; text-decoration:none}
+A.infolink:active{color: #FFFF77; text-decoration:none}
+A.infolink:hover{color: #FFFF00; text-decoration:none}
+
+A.clanitem:link{color: #ffe436; text-decoration:none}
+A.clanitem:visited{color: #ffe436; text-decoration:none}
+A.clanitem:active{color: #ffe436; text-decoration:none}
+A.clanitem:hover{color: #ffee7c; text-decoration:none}
+
+A.highitem:link{color: #E14545; text-decoration:none}
+A.highitem:visited{color: #E14545; text-decoration:none}
+A.highitem:active{color: #E14545; text-decoration:none}
+A.highitem:hover{color: #E19898; text-decoration:none}
+
+A.equipped:link{color: #9E1B90; text-decoration:none}
+A.equipped:visited{color: #9E1B90; text-decoration:none}
+A.equipped:active{color: #9E1B90; text-decoration:none}
+A.equipped:hover{color: #9E1B90; text-decoration:none}
+
+A.good:link{color: #ffe436; text-decoration:none}
+A.good:visited{color: #ffe436; text-decoration:none}
+A.good:active{color: #ffe436; text-decoration:none}
+A.good:hover{color: #ffee7c; text-decoration:none}
+
+A.neutral:link{color: #5483C9; text-decoration:none}
+A.neutral:visited{color: #5483C9; text-decoration:none}
+A.neutral:active{color: #5483C9; text-decoration:none}
+A.neutral:hover{color: #8CA4C9; text-decoration:none}
+
+A.evil:link{color: #E14545; text-decoration:none}
+A.evil:visited{color: #E14545; text-decoration:none}
+A.evil:active{color: #E14545; text-decoration:none}
+A.evil:hover{color: #E19898; text-decoration:none}
+
+A.channeler:link{color: #ffe436; text-decoration:none}
+A.channeler:visited{color: #ffe436; text-decoration:none}
+A.channeler:active{color: #ffe436; text-decoration:none}
+A.channeler:hover{color: #ffee7c; text-decoration:none}
+
+A.same:link{color: #9E1B90; text-decoration:none}
+A.same:visited{color: #9E1B90; text-decoration:none}
+A.same:active{color: #9E1B90; text-decoration:none}
+A.same:hover{color: #9E5D99; text-decoration:none}
+
+A.plain:link{color: #DDDDDD; text-decoration:none}
+A.plain:visited{color: #DDDDDD; text-decoration:none}
+A.plain:active{color: #DDDDDD; text-decoration:none}
+A.plain:hover{color: #BBBBBB; text-decoration:none}
+
+A.c:link{color: #000000; text-decoration:underline; font-size: 10px}
+A.c:visited{color: #000000; text-decoration:underline; font-size: 10px}
+A.c:active{color: #000000; text-decoration:underline; font-size: 10px}
+A.c:hover{color: #0F0F0F; text-decoration:none; font-size: 10px}
+
+A.n:link    {color: #FFFFFF; display: block; width: 130px;}
+A.n:visited {color: #FFFFFF; display: block; width: 130px;}
+A.n:active  {display: block; width: 130px;}
+A.n:hover   {display: block; width: 130px; color: #000000; background-color: #FFFFFF;}
+
+.nav-table {width: 130px; background-color: #000000; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; text-decoration:none;}
+
+
+/* $Id: example.css,v 1.5 2006/03/27 02:44:36 pat Exp $ */
+
+/*--------------------------------------------------
+  REQUIRED to hide the non-active tab content.
+  But do not hide them in the print stylesheet!
+  --------------------------------------------------*/
+.tabberlive .tabbertabhide {
+ display:none;
+}
+
+/*--------------------------------------------------
+  .tabber = before the tabber interface is set up
+  .tabberlive = after the tabber interface is set up
+  --------------------------------------------------*/
+.tabber {
+}
+.tabberlive {
+ margin-top:1em;
+}
+
+/*--------------------------------------------------
+  ul.tabbernav = the tab navigation list
+  li.tabberactive = the active tab
+  --------------------------------------------------*/
+ul.tabbernav
+{
+ margin:0;
+ padding: 3px 0;
+ border-bottom: 1px solid #778;
+ font: bold 12px Verdana, sans-serif;
+}
+
+ul.tabbernav li
+{
+ list-style: none;
+ margin: 0;
+ display: inline;
+}
+
+ul.tabbernav li a
+{
+ padding: 3px 0.5em;
+ margin-left: 3px;
+ border: 1px solid #778;
+ border-bottom: none;
+ background: #2F2F2F;
+ text-decoration: none;
+}
+
+ul.tabbernav li a:link { color: #999999; }
+ul.tabbernav li a:visited { color: #999999; }
+
+ul.tabbernav li a:hover
+{
+ color: #BBBBBB;
+ background: #2F2F2F;
+ border-color: #999999;
+}
+
+ul.tabbernav li.tabberactive a
+{
+ background-color: #000000;
+ border-bottom: 1px solid #000000;
+}
+
+ul.tabbernav li.tabberactive a:hover
+{
+ color: #FFFFFF;
+ background: #2F2F2F;
+ border-bottom: 1px solid #000000;
+}
+
+/*--------------------------------------------------
+  .tabbertab = the tab content
+  Add style only after the tabber interface is set up (.tabberlive)
+  --------------------------------------------------*/
+.tabberlive .tabbertab {
+ padding:5px;
+ border:1px solid #aaa;
+ border-top:0;
+
+ /* If you don't want the tab size changing whenever a tab is changed
+    you can set a fixed height */
+
+ /* height:200px; */
+
+ /* If you set a fix height set overflow to auto and you will get a
+    scrollbar when necessary */
+
+ /* overflow:auto; */
+}
+
+/* If desired, hide the heading since a heading is provided by the tab */
+.tabberlive .tabbertab h2 {
+ display:none;
+}
+.tabberlive .tabbertab h3 {
+ display:none;
+}
+
+/* Example of using an ID to set different styles for the tabs on the page */
+.tabberlive#tab1 {
+}
+.tabberlive#tab2 {
+}
+.tabberlive#tab2 .tabbertab {
+ height:200px;
+ overflow:auto;
+}
+
+/*----chat stuff---*/
+p.chatp {
+	font: normal 14px Arial, Helvetica, sans-serif;
+	color: #FFF;
+	margin-bottom: -12px;
+}
+span {
+	margin-left: 20px;
+	font: bold 12px Verdana, Arial, Helvetica, sans-serif;
+	color: #009999;
+}
+
+.msgfield {
+	font: normal 14px Arial, Helvetica, sans-serif;
+	color: #FFF;
+	width: 90%;
+	background: #444;
+}
+
+div#chatdiv {
+	height: 315px;
+	width: 600px;
+        background: #222222;
+	display: inline;
+}
+
+
+html>body div#chatdiv {
+	height: 250px;
+	width: 600px;
+        background: #222222;
+	display: inline;
+}
+
+div#messages {
+	height: 267px;
+	width: 600px;
+	background: url('images/ChatBckgrnd.gif') center no-repeat;
+        background-attachment: fixed;
+       	padding: 10px 0px 10px 0px;
+	border: 1px solid #000;
+	overflow: scroll;
+	overflow-x:hidden;
+}
+html>body div#messages {
+	height: 250px;
+	width: 590px;
+	background: url('images/ChatBckgrnd.gif') center no-repeat;
+       	padding: 5px;
+	border: 1px solid #000;
+	overflow: scroll;
+	overflow-x:hidden;
+}
+div#messagebox {
+	width: 600px;
+	background: #333333;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	border-bottom: 1px solid #000;
+      	padding: 10px 0px 0px 2px;
+}
+html>body div#messagebox {
+	width: 580px;
+	background: #333333;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	border-bottom: 1px solid #000;
+	padding: 10px;
+}
+
+html>body .abox { border: 1px solid #333333; 	
+        background-image:url('images/GoSBackdrop.gif');
+        border-spacing: 0px; 
+        padding: 0px 3px 3px 3px;
+}

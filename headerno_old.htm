@@ -1,0 +1,121 @@
+<link REL="StyleSheet" TYPE="text/css" HREF="stylea.css">
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <STYLE type="text/css" >
+    BODY {margin:0}
+  </STYLE>
+<title>A Game of Stones</title>
+<META name="description" content="A Game of Stones is a free MMORPG based in the Wheel of Time universe. Includes: custom character development, unique weapons, clan warfare, and player versus player combat.">
+<META name="keywords" content="wheel of time, wot, mmorpg, wotmud, wot mud, wheeloftime, randland, free, rpg, sword, battle, gos, game of stones, online game, browser based, browser-based">
+<meta name="verify-v1" content="DQmHcYd1Crd7gu4xSebpjWa7s/fGUp0rf0L96oZ6G0M=" />
+<link rel="icon" href="images/icon.ico" type="image/icon" />
+
+</head>
+
+<?php $message = "Welcome to the GoS: v13!"; 
+  $folder = "header_v6";
+?>
+
+<body style="background: black; font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; color: #FFFFFF; margin: 0px; padding: 0px">
+
+<!-- MENU BAR CODE -->
+<table border="0" cellpadding="0" cellspacing="0" align='center' width='990'>
+  <tr>
+    <td colspan="8"><img src="images/v9banner.gif" width='990'></td>
+  </tr>
+  <tr>
+    <td width='692'>&nbsp;</td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt=""/></td>
+    <td width='86' align='center'><a href="create.php"><img src="images/<?php echo $folder;?>/Join1.gif" name="1" border="0" alt="Join" onMouseover="this.src='images/<?php echo $folder;?>/Join2.gif'" onMouseout="this.src='images/<?php echo $folder;?>/Join1.gif'"></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="" width='10'/></td>
+    <td width='86' align='center'><a href="http://talij.com/goswiki/index.php" target="_blank"><img src="images/<?php echo $folder;?>/Wiki1.gif" name="2" border="0" alt="Preview" onMouseover="this.src='images/<?php echo $folder;?>/Wiki2.gif'" onMouseout="this.src='images/<?php echo $folder;?>/Wiki1.gif'"></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="" width='10'/></td>
+    <td width='86' align='center'><a href="http://gosos.proboards.com/index.cgi" target="_blank"><img src="images/<?php echo $folder;?>/Forum1.gif" name="3" border="0" alt="Forum" onMouseover="this.src='images/<?php echo $folder;?>/Forum2.gif'" onMouseout="this.src='images/<?php echo $folder;?>/Forum1.gif'"></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="" width='10'/></td>
+  </tr>
+  <tr>
+    <td colspan="8" valign="top" id="infoBar">
+      <font class="littletext"><font color="6D7795"><b><?php if ($message) echo $message; ?></b>
+    </td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="0" width="950" align=center style="vertical-align: top">
+  <tr>
+    <td valign=top>
+      <table width="100%" border=0 cellspacing=0 cellpadding=0 style="vertical-align: top">
+        <tr>
+          <td width="125" valign="top">
+            <br>
+<!-- LOGIN BOX -->
+            <p align="left">
+              <form action="verify.php" method="post">
+                <table cellspacing="0" cellpadding="5" width="125" style="vertical-align: top">
+                  <tr>
+                    <td style="vertical-align: top"><b>
+                      <label for="userid"><font class="littletext">First Name</label><br />
+                      <input type="text" name="userid" id="userid" class="form" maxlength="15" size="18" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="vertical-align: top">
+                      <b>
+                        <label for="lastname"><font class="littletext">House Name</label><br />
+                        <input type="text" name="lastname" id="lastname" class="form" maxlength="15" size="18" />
+                      </b>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="vertical-align: top">
+                      <b>
+                        <label for="password"><font class="littletext">Password</font></label><br />
+                        <input type="password" name="password" id="password" class="form" maxlength="10" size="18" />
+                        <label for="mode"><font class="littletext">Mode</font></label><br/>
+                        <select name="mode" id='mode' class="form">
+                          <option value="0">Normal</option>
+                          <option value="1">Lite</option>
+                        </select>
+                        <input type="Submit" name="submit" value="Enter World" class="form" />
+                      </b>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top">
+            <p align="left"><b>
+              <br><br><font style="font-size: 12px">
+          </td>
+        </tr>
+      </table>
+
+<!-- PAYPAL -->
+
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <input type="hidden" name="cmd" value="_donations">
+        <input type="hidden" name="business" value="tim.a.jensen@gmail.com">
+        <input type="hidden" name="item_name" value="GoS:OS Fund">
+        <input type="hidden" name="item_number" value="101">
+        <input type="hidden" name="no_shipping" value="0">
+        <input type="hidden" name="no_note" value="1">
+        <input type="hidden" name="currency_code" value="USD">
+        <input type="hidden" name="tax" value="0">
+        <input type="hidden" name="lc" value="US">
+        <input type="hidden" name="bn" value="PP-DonationsBF">
+        <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+        <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+      </form>
+      <br>
+      <?php
+        include('admin/connect.php');
+        $result = mysql_query("SELECT COUNT(*) FROM Users WHERE lastcheck='".(intval(time()/3600)-1)."' OR  lastcheck='".intval(time()/3600)."'");
+        $time_passed = intval((time()-(intval(time()/3600)-1)*3600)/60)-60;
+        $users_online = mysql_result($result,0);
+        if ($users_online >= 25) echo "<font class='foottext'><center><b>Online in last 1hr ".$time_passed."min</b><br>".$users_online." characters";
+      ?>
+      <br><br><br><br><br><br><br><br><br><br><br><br>
+    </td>
+    <td valign="top"><font style="font-size: 12px">
+<!-- END LOGIN BOX -->

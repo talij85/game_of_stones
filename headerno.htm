@@ -1,0 +1,90 @@
+<?php
+  if (!($name && $lastname && $password) || $password!=$char['password']) {header("Location: $server_name/verify.php?enabled=1"); exit;}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <?php 
+    if (!$title) $title = "A Game of Stones"; 
+    else $title = "GoS: ".$title;
+    echo "<title>$title</title>";
+  ?>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://talij.com/gosBootstrap/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://talij.com/gosBootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="scripts/overlib.js"><!-- overLIB (c) Erik Bosrup --></script>
+  <script type="text/javascript" src="myjava.js"></script>
+  <script type="text/javascript" src="tabber.js"></script>
+  <!--<script type="text/javascript" src="snowstorm.js"></script>-->
+  <style>body { padding-top: 60px; }</style>
+</head>
+
+<?php 
+  if (!$message) $message = "Welcome to the GoS: v13!"; 
+  $folder = "header_v6";
+?>
+
+<body>
+ <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.php">A Game of Stones</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.php">Home</a></li>
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+<?php
+  if (!$char[id])
+  {
+?> 
+        <li><a href="create.php">Join</a></li>
+        <li><a href="http://talij.com/goswiki/index.php" target="_blank">Wiki</a></li>
+        <li><a href="http://gosos.proboards.com/index.cgi" target="_blank">Forum</a></li>
+        <li><a onClick="donateForm.submit()">Donate</a></li>
+      <form name="donateForm" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <input type="hidden" name="cmd" value="_donations"/>
+        <input type="hidden" name="business" value="tim.a.jensen@gmail.com"/>
+        <input type="hidden" name="item_name" value="GoS:OS Fund"/>
+        <input type="hidden" name="item_number" value="101"/>
+        <input type="hidden" name="no_shipping" value="0"/>
+        <input type="hidden" name="no_note" value="1"/>
+        <input type="hidden" name="currency_code" value="USD"/>
+        <input type="hidden" name="tax" value="0"/>
+        <input type="hidden" name="lc" value="US"/>
+        <input type="hidden" name="bn" value="PP-DonationsBF"/>
+      </form>        
+<?php
+  }
+  else
+  {
+?>
+        <li><a href="http://talij.com/goswiki/index.php" target="_blank">Wiki</a></li>
+        <li><a href="http://gosos.proboards.com/index.cgi" target="_blank">Forum</a></li>
+<?php
+  }
+?>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container" align='center'>
+  <div class="row">
+     <div class="col-sm-12">
+       <img src="images/v9banner.jpg" class="img-rounded img-responsive hidden-xs" alt="A Game of Stones">
+     </div>
+  </div>
+  <div class="row" align='left'>
+     <div class="col-sm-12">
+       <h4><?php if ($message) echo $message; ?></h4>
+     </div>
+  </div>

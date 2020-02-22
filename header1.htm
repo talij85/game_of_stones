@@ -1,0 +1,209 @@
+<?php
+  if (!($name && $lastname && $password) || $password!=$char['password']) {header("Location: $server_name/verify.php?enabled=1"); exit;}
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <script type="text/javascript" src="scripts/overlib.js"><!-- overLIB (c) Erik Bosrup --></script>
+  <link REL="StyleSheet" TYPE="text/css" HREF="stylea.css"/>
+  <STYLE type="text/css" >
+    BODY 
+    { 
+      margin:0;
+    }
+<!--
+.buttons
+{
+}
+-->
+  </STYLE>
+
+<!-- JAVASCRIPTS -->
+<script type="text/javascript" src="myjava.js"></script>
+<script type="text/javascript" src="tabber.js"></script>
+<script type="text/javascript" src="head.js"></script>
+<!--<script type="text/javascript" src="snowstorm.js"></script>-->
+
+<!-- START HEADER -->
+
+<?php
+$timeback = $time - 30;
+$n_title = $_COOKIE['name'];
+$nl_title = $_COOKIE['lastname'];
+
+$myresult = mysql_query("SELECT * FROM Users LEFT JOIN Users_data ON Users.id=Users_data.id WHERE Users.id='$id'");
+$char = mysql_fetch_array($myresult);
+$gold=$char['gold'];
+if ($gold >= $_GET[cost]) $gold = $gold - $_GET[cost];
+$gold = number_format( $gold );
+$folder = "header_v6";
+$msgimage = "/Messages1.gif";
+$sklimage = "/Skills1.gif";
+if ($char[lastlog] > $char[logcheck]) $logimage = "/BattleLogs3.gif";
+if ($char[lastmsg] > $char[msgcheck]) $msgimage = "/Messages3.gif";
+if ($char[lastlvl] > $char[lvlcheck]) $sklimage = "/Skills3.gif";
+$qstimage="/Quests1.gif";
+$proimage="/Professions1.gif";
+
+$percent_up = 100-intval(100*($char[exp_up]-$char[exp])/$char[exp_up_s]);
+if ($percent_up > 99) $percent_up = 99;
+$myitmlist=unserialize($char['itmlist']);
+$mypouch = unserialize($char['pouch']);
+$mylistsize = count($myitmlist);
+$myclistsize = count($mypouch);
+
+if ($char['travelmode']) {
+  if ($travel_mode[$char['travelmode']][1]<=$char['feedneed']) $feedneed = 0;
+  else $feedneed = ($travel_mode[$char['travelmode']][1]-$char['feedneed']);
+}
+else $feedneed = 0;
+if (!$wikilink) $wikilink = "";
+?>
+
+<title>A Game of Stones | <?php echo "$n_title $nl_title"; ?></title>
+<META name="description" content="A Game of Stones is a free MMORPG based in the Wheel of Time universe. Includes: custom character development, unique weapons, clan warfare, and player versus player combat."/>
+<META name="keywords" content="wheel of time, wot, mmorpg, wotmud, wot mud, wheeloftime, randland, free, rpg, sword, battle, gos, game of stones, online game, browser based, browser-based"/>
+<meta name="verify-v1" content="DQmHcYd1Crd7gu4xSebpjWa7s/fGUp0rf0L96oZ6G0M=" />
+<link rel="icon" href="images/icon.ico" type="image/icon" />
+
+</head>
+
+<body style="background-image:url('images/GoSBackdrop.gif'); font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; color: #FFFFFF; margin: 0px; padding: 0px">
+
+<div id="overDiv" style="position:absolute; visibility:hidden; z-index:2000;"></div>
+
+<!-- BEGIN FLOATING LAYERS CODE //-->
+<div id="theLayer" style="z-index: 1000; position:absolute; width:250px;  left:275px; top:175px; visibility:hidden">
+  <table border="0" width="250" bgcolor="#000000" cellspacing="0" cellpadding="1">
+    <tr>
+      <td width="100%">
+        <table border="0" width="248" bgcolor="#FFFFFF" cellspacing="0" cellpadding="1">
+          <tr>
+            <td width="100%">
+              <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <tr>
+                  <td width="100%" bgcolor="#000000" style="padding: 10px;" colspan="2" valign="middle">
+                    <br/>
+                    <div id="popText" style=>TEXT</div>
+                    <br/>
+                  </td>
+                </tr>
+              </table> 
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- BEGIN FLOATING INFO //-->
+
+<div id="theLayer2" style="position:absolute; left:275px; top:175px; visibility:hidden">
+  <table border="0" bgcolor="#000000" cellspacing="0" cellpadding="1">
+    <tr>
+      <td width="100%">
+        <table border="0" bgcolor="#000000" cellspacing="0" cellpadding="1">
+          <tr>
+            <td width="100%">
+              <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <tr>
+                  <td width="100%" bgcolor="#000000" style="padding: 4px;" colspan="2" valign="middle">
+                    <div id="popText2" style="">&nbsp;</div>
+                  </td>
+                </tr>
+              </table> 
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+<!-- END FLOATING LAYERS CODE //--> 
+
+<!-- MENU BAR CODE -->
+<table border="0" cellpadding="0" cellspacing="0" align=center>
+  <tr class="buttons">
+    <td colspan="29"><img src="images/v9banner.jpg" width=990/></td> 
+<!--    <td colspan="29"><img src="images/v9holidaybanner.gif" width=990/></td>   -->
+  </tr>
+  <tr>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="look.php?first=1&amp;time=<?php echo time(); ?>"><img src="images/<?php echo $folder;?>/Nearby1.gif" border="0" alt="Nearby" onMouseover="this.src='images/<?php echo $folder;?>/Nearby2.gif'" onMouseout="this.src='images/<?php echo $folder;?>/Nearby1.gif'"/></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="world.php?time=<?php echo time(); ?>"><img src="images/<?php echo $folder;?>/World1.gif" border="0" alt="Town" onMouseover="this.src='images/<?php echo $folder;?>/World2.gif'" onMouseout="this.src='images/<?php echo $folder;?>/World1.gif'"/></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="clan.php?time=<?php echo time(); ?>"><img src="images/<?php echo $folder;?>/Clan1.gif" border="0" alt="Clan" onMouseover="this.src='images/<?php echo $folder;?>/Clan2.gif'" onMouseout="this.src='images/<?php echo $folder;?>/Clan1.gif'"/></a></td>  
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="bio.php?time=<?php echo time(); ?>"><img src="images/<?php echo $folder;?>/Profile1.gif" border="0" alt="Profile" onMouseover="this.src='images/<?php echo $folder;?>/Profile2.gif'" onMouseout="this.src='images/<?php echo $folder;?>/Profile1.gif'"/></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="items.php?time=<?php echo time(); ?>"><img src="images/<?php echo $folder;?>/Inventory1.gif" border="0" alt="Inventory" onMouseover="this.src='images/<?php echo $folder;?>/Inventory2.gif'" onMouseout="this.src='images/<?php echo $folder;?>/Inventory1.gif'"/></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="stats.php?time=<?php echo time(); ?>"><img src="images/<?php echo $folder.$sklimage;?>" border="0" alt="Skills" onMouseover="this.src='images/<?php echo $folder;?>/Skills2.gif'" onMouseout="this.src='images/<?php echo $folder.$sklimage;?>'"/></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="professions.php?time=<?php echo time(); ?>"><img src="images/<?php echo $folder.$proimage;?>" border="0" alt="Skills" onMouseover="this.src='images/<?php echo $folder;?>/Professions2.gif'" onMouseout="this.src='images/<?php echo $folder.$proimage;?>'"/></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="myquests.php?time=<?php echo time(); ?>"><img src="images/<?php echo $folder.$qstimage;?>" border="0" alt="Skills" onMouseover="this.src='images/<?php echo $folder;?>/Quests2.gif'" onMouseout="this.src='images/<?php echo $folder.$qstimage;?>'"/></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="messages.php?time=<?php echo time(); ?>"><img src="images/<?php echo $folder.$msgimage;?>" border="0" alt="Messages" onMouseover="this.src='images/<?php echo $folder;?>/Messages2.gif'" onMouseout="this.src='images/<?php echo $folder.$msgimage;?>'"/></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="telaranrhiod.php" target="popup" onClick="popUp2('telaranrhiod.php'); return false;"><img src="images/<?php echo $folder;?>/Tar1.gif" border="0" alt="T'A'R" onMouseover="this.src='images/<?php echo $folder;?>/Tar2.gif'" onMouseout="this.src='images/<?php echo $folder;?>/Tar1.gif'"/></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="horn.php?time=<?php echo time(); ?>"><img src="images/<?php echo $folder;?>/Heroes1.gif" border="0" alt="Horn" onMouseover="this.src='images/<?php echo $folder;?>/Heroes2.gif'" onMouseout="this.src='images/<?php echo $folder;?>/Heroes1.gif'"/></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="http://gosos.proboards.com/index.cgi" target="_blank"><img src="images/<?php echo $folder;?>/Forum1.gif" border="0" alt="Forum" onMouseover="this.src='images/<?php echo $folder;?>/Forum2.gif'" onMouseout="this.src='images/<?php echo $folder;?>/Forum1.gif'"/></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="<?php echo 'http://goswiki.talij.com/index.php?title='.$wikilink;?>" target="_blank"><img src="images/<?php echo $folder;?>/Wiki1.gif" border="0" alt="Forum" onMouseover="this.src='images/<?php echo $folder;?>/Wiki2.gif'" onMouseout="this.src='images/<?php echo $folder;?>/Wiki1.gif'"/></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td width='58'><a href="logout.php?time=<?php echo time(); ?>"><img src="images/<?php echo $folder;?>/Logout1.gif" border="0" alt="Log Out" onMouseover="this.src='images/<?php echo $folder;?>/Logout2.gif'" onMouseout="this.src='images/<?php echo $folder;?>/Logout1.gif'"/></a></td>
+    <td width='10'><img src="images/<?php echo $folder;?>/column.gif" border="0" alt="Nearby" width='10'/></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="29" valign="top">
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="20" height="20">
+          </td>
+          <td width='540' valign="top" id="infoBar"><!-- 6D7795 -->
+            <div id='message' class='littletext_b'><?php if ($message) echo $message; ?></div>
+          </td>
+          <td width='430'>
+            <table width='430' cellpadding="0" cellspacing="0" bgcolor="#111111" style="border: 1px solid #333; border-bottom: none;">
+              <tr>
+                <td style='border-width: 0px; border-bottom: 1px solid #333333; border-top: 1px solid #333333' width='60'>
+                  <font class='foottext'><img src="images/health.gif" border="0" alt="St:" title='Stamina' style="vertical-align:middle"/><?php echo $char[stamina]."/".$char[stamaxa];?></font>
+                </td>
+                <td style='border-width: 0px; border-bottom: 1px solid #333333; border-top: 1px solid #333333' width='50'>
+                  <font class='foottext'><img src="images/battle.gif" border="0" alt="Tn:" title='Turns' style="vertical-align:middle"/><?php echo ($battlelimit-$char['battlestoday']);?></font>
+                </td>
+                <td style='border-width: 0px; border-bottom: 1px solid #333333; border-top: 1px solid #333333' width='50'>
+                  <font class='foottext'><img src='images/lvlup.gif' border="0" alt='%U:' title='% Towards Level Up' style="vertical-align:middle"/><?php echo number_format($percent_up)."%";?></font>
+                </td>
+                <td style='border-width: 0px; border-bottom: 1px solid #333333; border-top: 1px solid #333333' width='60'>
+                  <font class='foottext'><img src="images/armor.gif" border="0" alt="Eq:" title='Equipment Storage' style="vertical-align:middle"/><?php echo $mylistsize."/".$inv_max;?></font>
+                </td>
+                <td style='border-width: 0px; border-bottom: 1px solid #333333; border-top: 1px solid #333333' width='60'>
+                  <font class='foottext'><img src="images/bag.gif" border="0" alt="Cs:" title='Consumables Storage' style="vertical-align:middle"/><?php echo $myclistsize."/".$pouch_max;?></font>
+                </td>
+                <td style='border-width: 0px; border-bottom: 1px solid #333333; border-top: 1px solid #333333' width='40'>
+                  <font class='foottext'><img src='images/horse.gif' border="0" alt='HT:' title='Horse Stamina' style="vertical-align:middle"/><?php echo $feedneed;?></font>
+                </td>
+                <td style='border-width: 0px; border-bottom: 1px solid #333333; border-top: 1px solid #333333' width='110'>
+                  <div id='pocket'><font class='foottext'><?php echo displayGold($char[gold]);?></font></div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<table style="border: 1px solid #333" width="990" cellspacing="0" cellpadding="5" bgcolor="#000000" align="center">
+  <tr>
+    <td valign=top style="<?php echo $bg;?>">
+
+<!-- PAGE CONTENT -->	
